@@ -80,7 +80,8 @@ alter table Silla add constraint fk_Silla_Sala foreign key (idSala) references S
 create table Pelicula(
     idPelicula integer not null,
     nombre varchar(45) not null,
-    duracion integer not null
+    duracion integer not null,
+    rutaImaen varchar(255) not null
 );
 
 alter table Pelicula add constraint pk_Pelicula primary key (idPelicula);
