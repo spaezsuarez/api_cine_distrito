@@ -1,15 +1,11 @@
-const db = require('./database');
+const Dao = require('./Dao');
 const resource = require('../resources/functions');
 
-class Dao{
+module.exports = class DaoRelation extends Dao{
 
-    constructor(){
-        this.db = db;
-    }
-
-    getAll(table){
+    createRelation(table,params){
         return new Promise((resolve,reject) => {
-            this.db.query(`SELECT * FROM ${table};`)
+            this.db.query(`INSERT INTO ${table} ${resource.getValueText(params)}`)
                 .then((response) => {
                     resolve(response);
                 }).catch((error) => {
@@ -18,9 +14,9 @@ class Dao{
         });
     }
 
-    get(table,id){
+    get(table,firstKey,secondKey){
         return new Promise((resolve,reject) =>{
-            this.db.query(`SELECT * FROM ${table} WHERE ${resource.getIdDB(table)} = ${id};`)
+            this.db.query(`SELECT * FROM ${table} WHERE ${resource.getKeys(table)[0]} = ${firstKey} AND ${resource.getKeys(table)[1]} = ${secondKey};`)
                 .then((response) => {
                     resolve(response);
                 }).catch((error) => {
@@ -29,20 +25,9 @@ class Dao{
         });
     }
 
-    create(table,object){
-        return new Promise((resolve,reject) => {
-            this.db.query(`INSERT INTO ${table} ${resource.getValueText(object.toArray())}`)
-                .then((data) => {
-                    resolve(data);
-                }).catch((error) => {
-                    reject(error);
-                });
-        });
-    }
-
-    delete(table,id){
+    deleteRelation(table,firstKey,secondKey){
         return new Promise((resolve,reject) =>{
-            this.db.query(`DELETE FROM ${table} WHERE ${resource.getIdDB(table)} = ${id};`)
+            this.db.query(`DELETE FROM ${table} WHERE ${resource.getKeys(table)[0]} = ${firstKey} AND ${resource.getKeys(table)[1]} = ${secondKey};`)
                 .then((response) => {
                     resolve(response);
                 }).catch((error) => {
@@ -51,9 +36,9 @@ class Dao{
         });
     }
 
-    update(table,body,id){
+    update(table,body,firstKey,secondKey){
         return new Promise((resolve,reject) => {
-            this.db.query(`UPDATE ${table} SET ${resource.getUpdateText(body)} WHERE ${resource.getIdDB(table)} = ${id};`)
+            this.db.query(`UPDATE ${table} SET ${resource.getUpdateText(body)} WHERE ${resource.getKeys(table)[0]} = ${firstKey} AND ${resource.getKeys(table)[1]} = ${secondKey};`)
                 .then((response) => {
                     resolve(response);
                 })
@@ -64,7 +49,4 @@ class Dao{
 
     }
 
-    
 }
-
-module.exports = Dao;

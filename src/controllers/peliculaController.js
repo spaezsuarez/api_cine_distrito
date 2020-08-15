@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const response = require('../routes/response');
+const response = require('../resources/response');
 const Dao = require('../common/Dao');
 const Pelicula = require('../models/Pelicula');
 

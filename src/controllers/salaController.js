@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Dao = require('../common/Dao');
-const response = require('../routes/response');
+const response = require('../resources/response');
 const Sala = require('../models/Sala');
 
 let salaManager = new Dao();

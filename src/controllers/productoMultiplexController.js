@@ -1,13 +1,12 @@
 const express = require('express');
-const router = express.Router();
-const Dao = require('../common/Dao');
+const DaoRelation = require('../common/DaoRelation');
 const response = require('../resources/response');
-const Multiplex = require('../models/Multiplex');
+const router = express.Router();
 
-let multiplexManager = new Dao();
+let controller = new DaoRelation();
 
-router.get('/list',(req,res) => {
-    multiplexManager.getAll('Multiplex')
+router.get('/',(req,res) => {
+    controller.getAll('Producto_Multiplex')
         .then((data) => {
             response.succes(req,res,data,200);
         })
@@ -18,52 +17,56 @@ router.get('/list',(req,res) => {
 
 router.get('/',(req,res) => {
 
+    let idProducto = req.query.idProducto;
     let idMultiplex = req.query.idMultiplex;
-    multiplexManager.get('Multiplex',idMultiplex)
+    controller.get('Producto_Multiplex',idProducto,idMultiplex)
         .then((data) => {
             response.succes(req,res,data,200);
-        }).catch((error) => {
+        })
+        .catch((error) => {
             response.error(req,res,error,404);
         });
 });
 
 router.post('/create',(req,res) => {
-    
-    let idMultiplex = req.body.idMultiplex;
-    let nombre = req.body.nombreMultiplex;
-    let ubicacion = req.body.ubicacion;
 
-    let multiplex = new Multiplex(idMultiplex,nombre,ubicacion);
-    multiplexManager.create('Multiplex',multiplex)
+    let idProducto = req.body.idProducto;
+    let idMultiplex = req.body.idMultiplex;
+    controller.createRelation('Producto_Multiplex',[idProducto,idMultiplex])
         .then(() => {
-            response.succes(req,res,'Multiplex creado',201);
+            response.succes(req,res,'Registro creado',201);
         }).catch((error) => {
             response.error(req,res,error,401);
         });
-
 });
+
 
 router.delete('/',(req,res) => {
 
+    let idProducto = req.query.idProducto;
     let idMultiplex = req.query.idMultiplex;
-    multiplexManager.delete('Multiplex',idMultiplex)
+    controller.deleteRelation('Producto_Multiplex',idProducto,idMultiplex)
         .then(() => {
-            response.succes(req,res,'Multiplex eliminado',200);
+            response.succes(req,res,'Registro eliminado',200);
         }).catch((error) => {
             response.error(req,res,error,500);
         });
+    
 });
 
 router.put('/',(req,res) => {
 
+    let idProducto = req.query.idProducto;
     let idMultiplex = req.query.idMultiplex;
-    multiplexManager.update('Multiplex',req.body,idMultiplex)
+    controller.update('Producto_Multiplex',req.body,idProducto,idMultiplex)
         .then(() => {
-            response.succes(req,res,'Informacion actualizada',200);
+            response.succes(req,res,'Registro actualizado',200);
         }).catch((error) => {
             response.error(req,res,error,500);
         });
 });
+
+
 
 
 module.exports = router;
