@@ -1,9 +1,10 @@
 class Producto{
-    constructor(idProducto,cantidad,nombreProducto,precio){
-        this.idProducto= idProducto;
-        this.cantidad= cantidad;
-        this.nombreProducto= nombreProducto;
-        this.precio= precio;
+    constructor(idProducto,cantidad,nombreProducto,precio,rutaImagen){
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.nombreProducto = nombreProducto;
+        this.precio = precio;
+        this.rutaImagen = rutaImagen;
     }
 
     getIdProducto(){
@@ -39,7 +40,7 @@ class Producto{
     }
 
     toArray(){
-        let lista= [this.idProducto,this.nombreProducto,this.cantidad,this.precio];
+        let lista= [this.idProducto,this.nombreProducto,this.cantidad,this.precio,this.rutaImagen];
         return lista;
    }
 }
