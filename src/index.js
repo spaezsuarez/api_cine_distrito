@@ -9,6 +9,4 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 router(app);
 
-app.listen(port, () =>  {
-    
-})
+app.listen(port);
