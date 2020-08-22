@@ -1,8 +1,9 @@
 class Pelicula{
-    constructor(idPelicula,nombre,duracion){
+    constructor(idPelicula,nombre,duracion,rutaImagen){
         this.idPelicula= idPelicula;
         this.nombre= nombre;
         this.duracion= duracion;
+        this.rutaImagen = rutaImagen;
     }
 
     getIdPelicula(){
@@ -15,6 +16,10 @@ class Pelicula{
     
     getDuracion(){
         return this.duracion;
+    }
+
+    getRutaImagen(){
+        return this.rutaImagen;
     }
     
     setIdPelicula(idPelicula){
@@ -29,8 +34,12 @@ class Pelicula{
         this.duracion= duracion;
     }
 
+    setRutaImagen(rutaImagen){
+        this.rutaImagen = rutaImagen;
+    }
+
     toArray(){
-        let lista= [this.idPelicula,this.nombre,this.duracion];
+        let lista= [this.idPelicula,this.nombre,this.duracion,this.rutaImagen];
         return lista;
    }
     

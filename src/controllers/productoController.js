@@ -35,9 +35,8 @@ router.post('/create', (req, res) => {
     let nombreProducto = req.body.nombreProducto;
     let cantidad = req.body.cantidad;
     let precio = req.body.precio;
-    let rutaImagen = req.body.rutaImagen;
-
-    let producto = new Producto(idProducto,cantidad,nombreProducto,precio,rutaImagen);
+    
+    let producto = new Producto(idProducto,cantidad,nombreProducto,precio);
 
     productoManager.create('Producto', producto)
         .then(() => {

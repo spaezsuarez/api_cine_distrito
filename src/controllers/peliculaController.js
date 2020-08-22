@@ -33,8 +33,9 @@ router.post('/create',(req,res) => {
     let idPelicula = req.body.idPelicula;
     let nombre = req.body.nombre;
     let duracion = req.body.duracion;
+    let rutaImagen = req.body.rutaImagen;
 
-    let pelicula = new Pelicula(idPelicula,nombre,duracion);
+    let pelicula = new Pelicula(idPelicula,nombre,duracion,rutaImagen);
     peliculaManager.create('Pelicula',pelicula)
         .then(() => {
             response.succes(req,res,`Pelicula ${nombre} agregada`,200);
