@@ -49,7 +49,7 @@ router.delete('/',(req,res) => {
     let idPelicula = req.query.idPelicula;
     peliculaManager.delete('Pelicula',idPelicula)
         .then(() => {
-            response.succes(req,res,`Pelicula ${idPelicula} creada exitosamente`,200);
+            response.succes(req,res,`Pelicula ${idPelicula} eliminada exitosamente`,200);
         }).catch((error) => {
             response.error(req,res,error,500);
         });
